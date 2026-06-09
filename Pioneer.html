@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pioneer Autoworld – Service Feedback</title>
+<link rel="icon" href="https://i.ibb.co/PsRd8pzC/Pioneer.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root {
+  --navy:   #0A1628;
+  --red:    #E8192C;
+  --green:  #25D366;
+  --white:  #FFFFFF;
+  --bg:     #F0F3F8;
+  --card:   #FFFFFF;
+  --border: #DDE3ED;
+  --muted:  #6B7894;
+  --text:   #1A2340;
+  --sel-bg: #0A1628;
+  --sel-tx: #FFFFFF;
+  --radius: 14px;
+  --shadow: 0 2px 16px rgba(10,22,40,.09);
+}
+
+/* ─── RESET / BASE ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── HEADER ─────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 8px rgba(0,0,0,.07);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 520px; margin: 0 auto;
+  padding: 10px 16px;
+}
+.nav-inner img { display: block; }
+.logo-pioneer { height: 44px; border-radius: 6px; }
+.logo-mahindra { height: 28px; }
+
+/* ─── PAGE WRAPPER ───────────────────────────────────── */
+.page {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 20px 14px 48px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+/* ─── HERO CARD ──────────────────────────────────────── */
+.hero-card {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a3260 100%);
+  border-radius: var(--radius);
+  padding: 24px 20px 20px;
+  text-align: center;
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+.hero-card .brand {
+  font-size: 1.55rem; font-weight: 800; letter-spacing: -.3px;
+  margin-bottom: 6px; line-height: 1.2;
+}
+.brand .pioneer { color: #fff; }
+.brand .auto    { color: var(--red); }
+.brand .city    { color: #94a8cc; font-size: 1.1rem; font-weight: 600; }
+.hero-tagline { font-size: .88rem; color: #b0c0de; margin-top: 4px; line-height: 1.5; }
+.hero-te      { font-size: .82rem; color: #8aaad8; margin-top: 3px; }
+
+/* ─── SECTION CARD ───────────────────────────────────── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.card-title {
+  font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* ─── FORM FIELDS ────────────────────────────────────── */
+.field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+.field:last-child { margin-bottom: 0; }
+.field label { font-size: .82rem; font-weight: 600; color: var(--text); }
+.field select,
+.field input[type="text"],
+.field textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: .93rem;
+  color: var(--text);
+  background: #f7f9fc;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+  appearance: none; -webkit-appearance: none;
+}
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236B7894' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+.field select:focus,
+.field input[type="text"]:focus,
+.field textarea:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(10,22,40,.1);
+  background: #fff;
+}
+.field textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+/* ─── RATING BUTTONS ─────────────────────────────────── */
+.rating-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+.rating-grid .full-width { grid-column: 1 / -1; }
+
+.rating-btn {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 12px 10px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: #f7f9fc;
+  color: var(--text);
+  font-family: inherit;
+  font-size: .88rem; font-weight: 600;
+  cursor: pointer;
+  transition: all .18s ease;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.rating-btn:hover { border-color: var(--navy); background: #eef1f7; }
+.rating-btn.selected {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+.rating-btn .emoji { font-size: 1.1rem; line-height: 1; }
+
+/* rating-specific accent colours (unselected hover) */
+.rating-btn[data-value="Excellent"]:hover  { border-color: #16a34a; }
+.rating-btn[data-value="Good"]:hover       { border-color: #2563eb; }
+.rating-btn[data-value="Fair"]:hover       { border-color: #d97706; }
+.rating-btn[data-value="Poor"]:hover       { border-color: #dc2626; }
+.rating-btn[data-value="Unacceptable"]:hover { border-color: #7c3aed; }
+
+/* ─── ISSUES SECTION (hidden by default) ─────────────── */
+.issues-section { display: none; }
+.issues-section.visible { display: block; }
+.issues-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.issue-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px;
+  border: 2px solid var(--border);
+  border-radius: 9px;
+  background: #f7f9fc;
+  color: var(--text);
+  font-family: inherit;
+  font-size: .88rem; font-weight: 500;
+  cursor: pointer;
+  transition: all .18s ease;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  text-align: left;
+}
+.issue-btn .check {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .18s;
+}
+.issue-btn.selected { border-color: var(--red); background: #fff5f5; }
+.issue-btn.selected .check {
+  background: var(--red); border-color: var(--red);
+  color: #fff; font-size: .7rem; font-weight: 800;
+}
+
+/* ─── PROGRESS BAR ───────────────────────────────────── */
+.progress-wrap {
+  background: var(--border);
+  border-radius: 99px;
+  height: 5px; overflow: hidden;
+  margin-bottom: 4px;
+}
+.progress-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--navy), var(--red));
+  border-radius: 99px;
+  transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+.progress-label {
+  font-size: .74rem; color: var(--muted); font-weight: 500; text-align: right;
+}
+
+/* ─── SUBMIT BUTTON ──────────────────────────────────── */
+.submit-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 16px;
+  border: none; border-radius: 11px;
+  background: var(--green);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem; font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 4px 14px rgba(37,211,102,.35);
+}
+.submit-btn:hover  { background: #1ebe5c; }
+.submit-btn:active { transform: scale(.98); }
+.submit-btn:disabled { background: #8ecfa8; cursor: not-allowed; transform: none; }
+.submit-btn .wa-icon { font-size: 1.2rem; }
+
+/* ─── TOAST ──────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--navy); color: #fff;
+  padding: 12px 22px; border-radius: 99px;
+  font-size: .88rem; font-weight: 600;
+  box-shadow: 0 6px 24px rgba(10,22,40,.25);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s;
+  white-space: nowrap; z-index: 200;
+}
+.toast.show {
+  opacity: 1; transform: translateX(-50%) translateY(0);
+}
+
+/* ─── RESPONSIVE: slightly wider for tablet/desktop ─── */
+@media (min-width: 540px) {
+  .page { padding: 28px 0 64px; }
+  .hero-card { padding: 32px 28px 26px; }
+  .card { padding: 22px 22px; }
+  .issues-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav-inner">
+    <img class="logo-pioneer" src="https://i.ibb.co/PsRd8pzC/Pioneer.jpg" alt="Pioneer Autoworld" />
+    <img class="logo-mahindra" src="https://i.ibb.co/C3dWRgdm/Mahindra.png" alt="Mahindra" />
+  </nav>
+</header>
+
+<main class="page">
+
+  <!-- Hero -->
+  <div class="hero-card">
+    <div class="brand">
+      <span class="pioneer">Pioneer</span>
+      <span class="auto"> Autoworld</span><br/>
+      <span class="city">(Guntur) Pvt. Ltd.</span>
+    </div>
+    <p class="hero-tagline">We are happy to serve you even better.</p>
+    <p class="hero-te">మేము మీకు మరింత మెరుగైన సేవలు అందించడానికి సిద్ధంగా ఉన్నాము.</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="card" style="padding:14px 16px;">
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">Fill in details to submit</div>
+  </div>
+
+  <!-- Details -->
+  <div class="card">
+    <p class="card-title">Your Details</p>
+
+    <div class="field">
+      <label for="locationSelect">Service Location</label>
+      <select id="locationSelect">
+        <option value="">Select Location</option>
+        <option>Rajahmundry</option>
+        <option>Bhimavaram</option>
+        <option>Amalapuram</option>
+        <option>Tadepalligudem</option>
+        <option>Mandapeta</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="RegNo">Vehicle Registration No.</label>
+      <input type="text" id="RegNo" placeholder="e.g. AP07 AB 1234" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label for="Mobile">Mobile Number</label>
+      <input type="text" id="Mobile" placeholder="10-digit number" inputmode="numeric" maxlength="10" />
+    </div>
+  </div>
+
+  <!-- Rating -->
+  <div class="card">
+    <p class="card-title">How was your Service Experience at Pioneer Autoworld ?. </p>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:12px;">How was your visit at Pioneer Autoworld?</p>
+    <div class="rating-grid">
+      <a href="#" class="rating-btn" data-value="Excellent"><span class="emoji">😄</span> Excellent</a>
+      <a href="#" class="rating-btn" data-value="Good"><span class="emoji">🙂</span> Good</a>
+      <a href="#" class="rating-btn" data-value="Fair"><span class="emoji">😐</span> Fair</a>
+      <a href="#" class="rating-btn" data-value="Poor"><span class="emoji">😞</span> Poor</a>
+      <a href="#" class="rating-btn full-width" data-value="Unacceptable"><span class="emoji">😠</span> Unacceptable</a>
+    </div>
+  </div>
+
+  <!-- Issues (shown only for Poor/Unacceptable) -->
+  <div class="card issues-section" id="issuesSection">
+    <p class="card-title">Sorry to hear that. Tell us What went wrong (Select all that Apply)?</p>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:12px;">Select all that apply.</p>
+    <div class="issues-grid">
+      <a href="#" class="issue-btn" data-value="Cleanliness of Vehicle"><span class="check"></span>Cleanliness of Vehicle</a>
+      <a href="#" class="issue-btn" data-value="Quality of Work"><span class="check"></span>Quality of Work Done</a>
+      <a href="#" class="issue-btn" data-value="Vehicle Status Updates"><span class="check"></span>Updates on Vehicle Status</a>
+      <a href="#" class="issue-btn" data-value="Time Taken for Service"><span class="check"></span>Time Taken for Service</a>
+      <a href="#" class="issue-btn" data-value="Service Advisor Experience"><span class="check"></span>Experience with Service Advisor</a>
+      <a href="#" class="issue-btn" data-value="Over Charges"><span class="check"></span>Over Charges</a>
+    </div>
+  </div>
+
+  <!-- Comment -->
+  <div class="card">
+    <p class="card-title">Would you like to share anything more about your Experrience (Optional)<span style="font-weight:400;text-transform:none;letter-spacing:0;">(Optional)</span></p>
+    <div class="field">
+      <textarea id="commentBox" rows="3" placeholder="Share anything more about your experience…"></textarea>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <button class="submit-btn" id="submitBtn" onclick="submitFeedback()">
+    <span class="wa-icon">💬</span> Share Feedback via WhatsApp
+  </button>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwsYTpIu4MI-xSMPcNGash3-uFy7qWT31_d8BuKU7pNNe5dlq2iMlS9hrHewTE-39UI/exec";
+const WA_NUMBERS = ["919701970142"];
+let selectedRating = "";
+const selectedIssues = new Set();
+function updateProgress() {
+  const loc  = document.getElementById("locationSelect").value;
+  const reg  = document.getElementById("RegNo").value.trim();
+  const mob  = document.getElementById("Mobile").value.trim();
+  const steps = [!!loc, !!reg, !!mob, !!selectedRating];
+  const done  = steps.filter(Boolean).length;
+  const pct   = Math.round((done / steps.length) * 100);
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("progressLabel").textContent =
+    pct === 100 ? "Ready to submit ✓" : `${done} of ${steps.length} steps completed`;
+}
+["locationSelect","RegNo","Mobile"].forEach(id =>
+  document.getElementById(id).addEventListener("input", updateProgress)
+);
+document.querySelectorAll(".rating-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    selectedRating = btn.dataset.value;
+    document.querySelectorAll(".rating-btn").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    const needsIssues = selectedRating === "Poor" || selectedRating === "Unacceptable" || selectedRating === "Fair" ;
+    const sec = document.getElementById("issuesSection");
+    sec.classList.toggle("visible", needsIssues);
+    if (!needsIssues) {
+      selectedIssues.clear();
+      document.querySelectorAll(".issue-btn").forEach(b => {
+        b.classList.remove("selected");
+        b.querySelector(".check").textContent = "";
+      });
+    }
+    updateProgress();
+  });
+});
+document.querySelectorAll(".issue-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    const val = btn.dataset.value;
+    const chk = btn.querySelector(".check");
+    if (selectedIssues.has(val)) {
+      selectedIssues.delete(val);
+      btn.classList.remove("selected");
+      chk.textContent = "";
+    } else {
+      selectedIssues.add(val);
+      btn.classList.add("selected");
+      chk.textContent = "✓";
+    }
+  });
+});
+function showToast(msg, duration = 3000) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), duration);
+}
+function validate() {
+  const loc = document.getElementById("locationSelect").value;
+  const reg = document.getElementById("RegNo").value.trim();
+  const mob = document.getElementById("Mobile").value.trim();
+  if (!loc)           { showToast("⚠️ Please select a location."); return false; }
+  if (!reg)           { showToast("⚠️ Please enter the vehicle registration number."); return false; }
+  if (!/^\d{10}$/.test(mob)) { showToast("⚠️ Enter a valid 10-digit mobile number."); return false; }
+  if (!selectedRating){ showToast("⚠️ Please rate your service experience."); return false; }
+  if ((selectedRating === "Poor" || selectedRating === "Unacceptable") && selectedIssues.size === 0)
+    { showToast("⚠️ Please select at least one issue."); return false; }
+  return true;
+}
+async function submitFeedback() {
+  if (!validate()) return;
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+  const payload = {
+    timestamp:    new Date().toLocaleString("en-IN", {timeZone:"Asia/Kolkata"}),
+    location:     document.getElementById("locationSelect").value,
+    registration: document.getElementById("RegNo").value.trim().toUpperCase(),
+    mobile:       document.getElementById("Mobile").value.trim(),
+    rating:       selectedRating,
+    issues:       Array.from(selectedIssues).join(", ") || "—",
+    comment:      document.getElementById("commentBox").value.trim() || "—"
+  };
+  if (SHEET_URL && SHEET_URL !== "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE") {
+    try {
+      await fetch(SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+    } catch (_) { /* fail silently — WA is primary channel */ }
+  }
+  const lines = [
+    "Hello,",
+    "",
+    "I would like to share my feedback regarding my recent service experience.",
+    "",
+    `📍 Location: ${payload.location}`,
+    `🚗 Registration: ${payload.registration}`,
+    `📞 Contact: ${payload.mobile}`,
+    `⭐ Experience: ${payload.rating}`,
+    payload.issues !== "—" ? `⚠️ Issues: ${payload.issues}` : null,
+    payload.comment !== "—" ? `💬 Feedback: ${payload.comment}` : null,
+  ].filter(l => l !== null).join("\n");
+  const encoded = encodeURIComponent(lines);
+  WA_NUMBERS.forEach((num, i) => {
+    setTimeout(() => window.open(`https://wa.me/${num}?text=${encoded}`, "_blank"), i * 1800);
+  });
+  showToast("✅ Feedback sent! Thank you.", 3500);
+  resetForm();
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.innerHTML = '<span class="wa-icon">💬</span> Share Feedback via WhatsApp';
+  }, 2500);
+}
+function resetForm() {
+  document.getElementById("locationSelect").selectedIndex = 0;
+  document.getElementById("RegNo").value = "";
+  document.getElementById("Mobile").value = "";
+  document.getElementById("commentBox").value = "";
+  document.querySelectorAll(".rating-btn").forEach(b => b.classList.remove("selected"));
+  document.querySelectorAll(".issue-btn").forEach(b => {
+    b.classList.remove("selected");
+    b.querySelector(".check").textContent = "";
+  });
+  document.getElementById("issuesSection").classList.remove("visible");
+  selectedRating = "";
+  selectedIssues.clear();
+  updateProgress();
+}
+updateProgress();
+</script>
+</body>
+</html>
